@@ -1,0 +1,56 @@
+<x-app-layout>
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold">Location</h1>
+            <a href="{{ route('locations.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+                + Ajouter
+            </a>
+        </div>
+        @if($locations->isEmpty())
+            <div class="text-center py-12">
+                <p class="text-gray-500 text-lg">Aucun lieu de tournage trouvé</p>
+            </div>
+        @else
+            <div class="overflow-x-auto bg-white rounded-lg shadow">
+                <table class="w-full">
+                    <thead class="bg-gray-100 border-b">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-sm font-semibold">Nom</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold">Localisation</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold">Film</th>
+                            <th class="px-6 py-3 text-left text-sm font-semibold">Créé par</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Votes</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($locations as $location)
+                            <tr class="border-b hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 font-bold">{{ $location->name }}</td>
+                                <td class="px-6 py-4 text-sm">{{ $location->city }}, {{ $location->country }}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <a href="{{ route('films.index', $location->film) }}" class="text-blue-500 hover:underline">
+                                        {{ $location->film->title }}
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 text-sm">{{ $location->user->name }}</td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                        ⭐ {{ $location->upvotes_count }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <div class="flex gap-2 justify-center">
+                                        <a href="{{ route('locations.index', $location) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                            Voir
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </div>
+</x-app-layout>

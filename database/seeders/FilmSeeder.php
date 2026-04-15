@@ -26,7 +26,7 @@ class FilmSeeder extends Seeder
                         'city' => fake()->city(),
                         'country' => fake()->country(),
                         'description' => fake()->paragraph(),
-                        'upvotes_count' => rand(0, 100),
+                        'upvotes_count' => 0,
                     ])->toArray()
                 );
             });
