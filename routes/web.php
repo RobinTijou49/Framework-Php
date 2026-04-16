@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/locations/{location}/edit', [LocationController::class, 'updateForm'])->name('locations.edit');
     Route::put('/locations/{location}', [LocationController::class, 'update'])->name('locations.update');
     Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
 });
 
 require __DIR__.'/auth.php';

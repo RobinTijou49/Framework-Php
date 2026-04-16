@@ -14,10 +14,15 @@ class FilmSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::count() === 0 ? User::factory(5)->create() : User::all();
+        $admin = User::where('is_admin', true)->first();
+        $users = User::where('is_admin', false)->get();
+
+        if (!$admin || $users->isEmpty()) {
+            return;
+        }
 
         Film::factory(25)
-            ->create()
+            ->create(['user_id' => $admin->id])
             ->each(function ($film) use ($users) {
                 $film->locations()->createMany(
                     collect(range(1, rand(2, 5)))->map(fn() => [
