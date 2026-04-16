@@ -53,12 +53,12 @@
                                         <form action="{{ route('locations.delete', $location) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu de tournage ?');">
                                             @csrf
                                             @method('DELETE')
-                                            @if(auth()->id() === $location->user_id || auth()->user()->is_admin)
+                                            @if(auth()->check() && (auth()->id() === $location->user_id || auth()->user()->is_admin))
                                                 <button type="submit" class="bg-red-500 hover:bg-red-700 text-white text-xs font-bold py-1 px-3 rounded">
                                                     Supprimer
                                                 </button>
                                             @else
-                                                <button type="submit" disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
+                                                <button type="button" disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
                                                     Supprimer
                                                 </button>
                                             @endif
@@ -67,12 +67,12 @@
                                 </td>
                                 <td>
                                     <div class="flex gap-2 justify-center">
-                                        @if(auth()->id() === $location->user_id || auth()->user()->is_admin)
+                                        @if(auth()->check() && (auth()->id() === $location->user_id || auth()->user()->is_admin))
                                             <a href="{{ route('locations.edit', $location) }}" class="bg-green-500 hover:bg-green-700 text-white text-xs font-bold py-1 px-3 rounded">
                                                 Modifier
                                             </a>
                                         @else
-                                            <button disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
+                                            <button type="button" disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
                                                 Modifier
                                             </button>
                                         @endif

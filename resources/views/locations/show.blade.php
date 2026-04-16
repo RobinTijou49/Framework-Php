@@ -40,6 +40,15 @@
                             <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Pays</h3>
                             <p class="text-lg text-gray-800">{{ $location->country }}</p>
                         </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Upvotes</h3>
+                            <form id="upvote-form" action="{{ route('locations.upvote', $location) }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">
+                                    {{ $location->upvotes_count }}
+                                </button>
+                            </form>
+                        </div>
                     </div>
 
                     @if($location->description)

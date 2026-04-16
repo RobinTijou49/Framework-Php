@@ -79,4 +79,16 @@ class LocationController extends Controller
     {
         return view('locations.show', compact('location'));
     }
+
+    public function upvote(Location $location)
+    {
+        if(auth()->user()->upvotedLocations()->where('location_id', $location->id)->exists()) {
+            return redirect()->route('locations.show', $location)->with('error', 'Vous avez déjà upvoté ce lieu.');
+        }
+
+        auth()->user()->upvotedLocations()->attach($location->id);
+        $location->increment('upvotes_count');
+
+        return redirect()->route('locations.show', $location)->with('success', 'Lieu upvoté avec succès.');
+    }
 }

@@ -30,4 +30,9 @@ class Location extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function upvotedBy()
+    {
+        return $this->belongsToMany(User::class, 'location_votes');
+    }
 }

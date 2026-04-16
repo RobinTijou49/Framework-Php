@@ -58,4 +58,9 @@ class User extends Authenticatable
         return $this->hasMany(Location::class);
     }
 
+    public function upvotedLocations()
+    {
+        return $this->belongsToMany(Location::class, 'location_votes');
+    }
+
 }
