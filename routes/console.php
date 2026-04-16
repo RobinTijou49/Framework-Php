@@ -9,5 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 // Planifier la suppression des vieilles locations
-Schedule::command('locations:delete-old')->everyMinute();
+Schedule::command('locations:delete-old')->hourly();
 

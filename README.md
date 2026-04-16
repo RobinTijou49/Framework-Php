@@ -15,3 +15,9 @@ php artisan location:delete-old
 
 ## lancer la tache planifiée automatiquement
 php artison schedule:work
+
+
+## Installer Laravel Pint 
+```
+composer require laravel/pint --dev
+```
