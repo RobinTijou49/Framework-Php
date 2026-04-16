@@ -13,7 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Créer un utilisateur admin pour les tests
         User::firstOrCreate(
             ['email' => 'admin@test.fr'],
             [
@@ -24,7 +23,6 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // Créer un utilisateur utilisateur normal pour les tests
         User::firstOrCreate(
             ['email' => 'user@test.fr'],
             [

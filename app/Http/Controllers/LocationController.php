@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Film;
+use App\Jobs\ProcessLocationUpvote;
 
 class LocationController extends Controller
 {
@@ -81,14 +82,13 @@ class LocationController extends Controller
     }
 
     public function upvote(Location $location)
-    {
-        if(auth()->user()->upvotedLocations()->where('location_id', $location->id)->exists()) {
-            return redirect()->route('locations.show', $location)->with('error', 'Vous avez déjà upvoté ce lieu.');
-        }
-
-        auth()->user()->upvotedLocations()->attach($location->id);
-        $location->increment('upvotes_count');
-
-        return redirect()->route('locations.show', $location)->with('success', 'Lieu upvoté avec succès.');
+{
+    if(auth()->user()->upvotedLocations()->where('location_id', $location->id)->exists()) {
+        return redirect()->route('locations.show', $location)->with('error', 'Déjà upvoté.');
     }
+
+    ProcessLocationUpvote::dispatch($location, auth()->user());
+
+    return redirect()->route('locations.show', $location)->with('success', 'Vote en cours de traitement.');
+}
 }
