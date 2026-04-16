@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StripeController;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -66,6 +67,23 @@ Route::middleware('auth')->group(function () {
     Route::put('/locations/{location}', [LocationController::class, 'update'])->name('locations.update');
     Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');
     Route::post('/locations/{location}/upvote', [LocationController::class, 'upvote'])->name('locations.upvote');
+
+    // Stripe routes
+    Route::post('/subscribe', [StripeController::class, 'subscribe']);
+    Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+
+    Route::get('/success', function () {
+    return "Paiement réussi 🎉";
+    })->name('success');
+
+    Route::get('/cancel', function () {
+        return "Paiement annulé ❌";
+    })->name('cancel');
+
+    // Route Premium
+    Route::get('/premium-content', function () {
+        return view('premium.index');
+    })->middleware('subscribed')->name('premium.content');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
