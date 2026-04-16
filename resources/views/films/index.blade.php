@@ -20,7 +20,9 @@
                             <th class="px-6 py-3 text-left text-sm font-semibold">Sortie</th>
                             <th class="px-6 py-3 text-left text-sm font-semibold">Synopsis</th>
                             <th class="px-6 py-3 text-center text-sm font-semibold">Lieux</th>
-                            <th class="px-6 py-3 text-center text-sm font-semibold">Actions</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Voir</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Supprimer</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Modifier</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,11 +38,40 @@
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex gap-2 justify-center">
-                                        <a href="{{ route('films.index', $film) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                        <a href="{{ route('films.show', $film) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-3 rounded">
                                             Voir
                                         </a>
                                     </div>
                                 </td>
+                                <td>
+                                    <div class="flex gap-2 justify-center">
+                                        <form action="{{ route('films.delete', $film) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            @if(auth()->id() === $film->user_id || auth()->user()->is_admin)
+                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                                    Supprimer
+                                                </button>
+                                            @else
+                                                <button type="submit" disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
+                                                    Supprimer
+                                                </button>
+                                            @endif
+                                        </form>
+                                    <div>
+                                </td>
+                                <td>
+                                    <div class="flex gap-2 justify-center">
+                                        @if(auth()->id() === $film->user_id || auth()->user()->is_admin)
+                                            <a href="{{ route('films.edit', $film) }}" class="bg-green-500 hover:bg-green-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                                Modifier
+                                            </a>
+                                        @else
+                                            <button disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
+                                                Modifier
+                                            </button>
+                                        @endif
+                                    </div>
                             </tr>
                         @endforeach
                     </tbody>

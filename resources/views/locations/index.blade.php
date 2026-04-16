@@ -20,7 +20,9 @@
                             <th class="px-6 py-3 text-left text-sm font-semibold">Film</th>
                             <th class="px-6 py-3 text-left text-sm font-semibold">Créé par</th>
                             <th class="px-6 py-3 text-center text-sm font-semibold">Votes</th>
-                            <th class="px-6 py-3 text-center text-sm font-semibold">Actions</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Voir</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Supprimer</th>
+                            <th class="px-6 py-3 text-center text-sm font-semibold">Modifier</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,9 +43,39 @@
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex gap-2 justify-center">
-                                        <a href="{{ route('locations.index', $location) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                        <a href="{{ route('locations.show', $location) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-3 rounded">
                                             Voir
                                         </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex gap-2 justify-center">
+                                        <form action="{{ route('locations.delete', $location) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce lieu de tournage ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            @if(auth()->id() === $location->user_id || auth()->user()->is_admin)
+                                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                                    Supprimer
+                                                </button>
+                                            @else
+                                                <button type="submit" disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
+                                                    Supprimer
+                                                </button>
+                                            @endif
+                                        </form>
+                                    <div>
+                                </td>
+                                <td>
+                                    <div class="flex gap-2 justify-center">
+                                        @if(auth()->id() === $location->user_id || auth()->user()->is_admin)
+                                            <a href="{{ route('locations.edit', $location) }}" class="bg-green-500 hover:bg-green-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                                Modifier
+                                            </a>
+                                        @else
+                                            <button disabled class="bg-gray-300 text-gray-500 text-xs font-bold py-1 px-3 rounded cursor-not-allowed">
+                                                Modifier
+                                            </button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

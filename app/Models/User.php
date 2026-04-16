@@ -48,8 +48,14 @@ class User extends Authenticatable
         ];
     }
 
-    public function locations(): HasMany
+    public function films()
+    {
+        return $this->hasMany(Film::class);
+    }
+
+    public function locations()
     {
         return $this->hasMany(Location::class);
     }
+
 }
