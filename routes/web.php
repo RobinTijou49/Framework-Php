@@ -5,11 +5,13 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\MCPController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Models\Location;
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,6 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/films/{film}', [FilmController::class, 'update'])->name('films.update');
     Route::get('/films/{film}/edit', [FilmController::class, 'updateForm'])->name('films.edit');
     Route::get('/films/{film}', [FilmController::class, 'show'])->name('films.show');
+    Route::get('/films/{id}/locations', function ($id) {
+        return Location::where('film_id', $id)->get();
+    });
 
     // Locations routes
     Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
@@ -89,6 +94,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+});
+
+// Routes MCP
+Route::prefix('mcp')->group(function () {
+    Route::get('/list_films', [MCPController::class, 'listFilms']);
+    Route::get('/get_locations_for_film/{id}', [MCPController::class, 'getLocationsForFilm']);
 });
 
 require __DIR__.'/auth.php';
