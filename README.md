@@ -1,3 +1,35 @@
+## Lancer le projet
+1. Cloner le projet
+```
+git clone   
+```
+2. Installer les dépendances
+```
+npm install
+```
+3. Copier le fichier .env.example en .env
+```
+cp .env.example .env
+```
+4. Générer la clé de l'application
+```
+php artisan key:generate
+```
+5. Lancer les migrations pour créer les tables dans la base de données
+```
+php artisan migrate
+```
+6. Lancer les seeders pour remplir la base de données avec des données de test
+```
+php artisan db:seed
+```
+7. Ajouter dans le .env les infos Stripe, github, cashier, JWT
+8. Lancer le serveur de développement
+```
+composer run dev
+```
+
+
 ## Etape 1 Authentification
 Installation de Laravel Breeze
 
