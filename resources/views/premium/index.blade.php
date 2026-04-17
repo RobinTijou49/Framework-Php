@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Content</title>
-</head>
-<body>
-    <p>Bienvenue sur la page Premium ! Seuls les utilisateurs abonnés peuvent accéder à ce contenu exclusif.</p>
-</body>
-</html>
+<x-app-layout>
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold">Films</h1>
+    </div>
+    <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <h1>Contenu Premium</h1>
+        <p>Bienvenue dans la section premium ! Vous avez accès à du contenu exclusif réservé aux abonnés.</p>
+    </div>
+</div>
+
+</x-app-layout>
+

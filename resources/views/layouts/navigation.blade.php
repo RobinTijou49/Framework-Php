@@ -35,7 +35,7 @@
                 @endif
                 @if(auth()->user()->subscribed('default'))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('premium.content')" :active="request()->routeIs('premium.content')">
+                    <x-nav-link :href="route('api.films.index')" :active="request()->routeIs('api.films.index')">
                         {{ __('Premium Content') }}
                     </x-nav-link>
                 </div>
