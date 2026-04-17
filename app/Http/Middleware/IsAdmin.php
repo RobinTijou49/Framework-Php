@@ -16,7 +16,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (! auth()->check() || ! auth()->user()->is_admin) {
-            return redirect()->route('home')->with('error', 'Accès réservé aux administrateurs.');
+            return redirect()->route('dashboard')->with('error', 'Accès réservé aux administrateurs.');
         }
 
         return $next($request);
