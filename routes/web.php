@@ -96,10 +96,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
-// Routes MCP
-Route::prefix('mcp')->group(function () {
-    Route::get('/list_films', [MCPController::class, 'listFilms']);
-    Route::get('/get_locations_for_film/{id}', [MCPController::class, 'getLocationsForFilm']);
-});
-
 require __DIR__.'/auth.php';

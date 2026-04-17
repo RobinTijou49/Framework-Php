@@ -31,63 +31,73 @@ composer require laravel/pint --dev
 
 # 📘 MCP Laravel - Film API
 
-
-# ⚙️ Architecture
-
-Le système repose sur :
-
-- Laravel (API JSON)
-- Base de données (films + locations)
-- Un contrôleur MCP dédié
-- Des routes API exposant des “tools”
-
----
-
 # 🧩 Tools disponibles
 
-## 1. list_films
+## 1. mcp/tools
 
 ### 📌 Description
-Retourne la liste de tous les films disponibles dans la base de données.
+Retourne la liste de tous les tools disponibles dans le MCP.
 
 ### 🌐 Endpoint
-GET `/mcp/list_films`
+GET `/api/mcp/tools`
 
 
 ### 📤 Réponse
 
 ```json
 {
-  "tool": "list_films",
-  "data": [
+  "tools": [
     {
-      "id": 1,
-      "title": "Inception",
-      "created_at": "...",
-      "updated_at": "..."
+      "name": "list_films",
+      "description": "Retourne la liste des films",
+      "parameters": []
+    },
+    {
+      "name": "get_locations_for_film",
+      "description": "Retourne les lieux d'un film",
+      "parameters": {
+        "id": "integer"
+      }
     }
   ]
 }
 ```
-## 1. get_locations_for_film
+## 1. mcp/run
 
 ### 📌 Description
-Retourne les lieux de tournage associés à un film spécifique.
-### 🌐 Endpoint
-GET `/mcp/get_locations_for_film/{id}`
+Retourne les résultats d’un tool donné avec les paramètres fournis. Par exemple, pour le tool `get_locations_for_film` avec `film_id` égal à 1, la requête serait :
 
+
+### 🌐 Endpoint
+POST `/api/mcp/run`
+Body:
+```json
+{
+  "tool": "get_locations_for_film",
+  "parameters": {
+    "film_id": 19
+  }
+}
+```
 
 ### 📤 Réponse
 
 ```json
 {
-  "tool": "get_locations_for_film",
-  "film_id": 1,
-  "data": [
-    {
-      "id": 5,
-      "film_id": 1,
-      "location": "Paris"
-    }
-  ]
-}```
+"tool": "get_locations_for_film",
+    "data": [
+        {
+            "id": 68,
+            "film_id": 19,
+            "user_id": 2,
+            "name": "quidem",
+            "city": "Bernieceville",
+            "country": "Haiti",
+            "description": "Et et nesciunt maxime omnis. Hic molestiae vel molestias quia atque fugiat voluptatem non. Quia repellendus nostrum nulla enim sunt.",
+            "upvotes_count": 0,
+            "created_at": "2026-04-16T08:25:52.000000Z",
+            "updated_at": "2026-04-16T08:25:52.000000Z"
+        },
+    ]
+}
+```

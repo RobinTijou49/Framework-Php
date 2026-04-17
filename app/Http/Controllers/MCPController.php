@@ -24,4 +24,30 @@ class MCPController extends Controller
             "data" => Location::where("film_id", $id)->get()
         ]);
     }
+
+    public function run(Request $request)
+    {
+        $tool = $request->input('tool');
+        $args = $request->input('arguments', []);
+
+        switch ($tool) {
+
+            case 'list_films':
+                return response()->json([
+                    "tool" => $tool,
+                    "data" => Film::all()
+                ]);
+
+            case 'get_locations_for_film':
+                return response()->json([
+                    "tool" => $tool,
+                    "data" => Location::where('film_id', $args['id'])->get()
+                ]);
+
+            default:
+                return response()->json([
+                    "error" => "Tool not found"
+                ], 404);
+        }
+    }
 }
