@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Film;
+use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
     public function index()
     {
         $films = Film::with('locations')->get()->sortByDesc('release_date');
+
         return view('films.index', compact('films'));
     }
 
@@ -34,20 +35,21 @@ class FilmController extends Controller
 
     public function delete(Film $film)
     {
-        if (auth()->id() !== $film->user_id && !auth()->user()->is_admin) {
+        if (auth()->id() !== $film->user_id && ! auth()->user()->is_admin) {
             return redirect()->route('films.index')->with('error', 'Non autorisé.');
         }
-        
+
         $film->delete();
+
         return redirect()->route('films.index')->with('success', 'Film supprimé avec succès.');
     }
 
     public function update(Request $request, Film $film)
     {
-        if (auth()->id() !== $film->user_id && !auth()->user()->is_admin) {
+        if (auth()->id() !== $film->user_id && ! auth()->user()->is_admin) {
             return redirect()->route('films.index')->with('error', 'Non autorisé.');
         }
-        
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'required|date',
@@ -61,10 +63,10 @@ class FilmController extends Controller
 
     public function updateForm(Film $film)
     {
-        if (auth()->id() !== $film->user_id && !auth()->user()->is_admin) {
+        if (auth()->id() !== $film->user_id && ! auth()->user()->is_admin) {
             return redirect()->route('films.index')->with('error', 'Non autorisé.');
         }
-        
+
         return view('films.edit', compact('film'));
     }
 

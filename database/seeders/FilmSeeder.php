@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Film;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class FilmSeeder extends Seeder
 {
@@ -17,7 +16,7 @@ class FilmSeeder extends Seeder
         $admin = User::where('is_admin', true)->first();
         $users = User::where('is_admin', false)->get();
 
-        if (!$admin || $users->isEmpty()) {
+        if (! $admin || $users->isEmpty()) {
             return;
         }
 
@@ -25,7 +24,7 @@ class FilmSeeder extends Seeder
             ->create(['user_id' => $admin->id])
             ->each(function ($film) use ($users) {
                 $film->locations()->createMany(
-                    collect(range(1, rand(2, 5)))->map(fn() => [
+                    collect(range(1, rand(2, 5)))->map(fn () => [
                         'user_id' => $users->random()->id,
                         'name' => fake()->word(),
                         'city' => fake()->city(),

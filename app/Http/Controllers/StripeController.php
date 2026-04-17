@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Laravel\Cashier\Subscription;
-use App\Models\User;
 
 class StripeController extends Controller
 {
@@ -32,8 +30,8 @@ class StripeController extends Controller
         return $user
             ->newSubscription('default', 'price_1TMpPhAZZ9OET5JovNjyO025')
             ->checkout([
-                'success_url' => route('dashboard') . '?success=1',
-                'cancel_url' => route('dashboard') . '?cancel=1',
+                'success_url' => route('dashboard').'?success=1',
+                'cancel_url' => route('dashboard').'?cancel=1',
             ]);
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,11 +73,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
 
     Route::get('/success', function () {
-    return "Paiement réussi 🎉";
+        return 'Paiement réussi 🎉';
     })->name('success');
 
     Route::get('/cancel', function () {
-        return "Paiement annulé ❌";
+        return 'Paiement annulé ❌';
     })->name('cancel');
 
     // Route Premium

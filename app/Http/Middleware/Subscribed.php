@@ -15,9 +15,10 @@ class Subscribed
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->subscribed('default')) {
+        if (! auth()->check() || ! auth()->user()->subscribed('default')) {
             return redirect()->route('dashboard')->with('error', 'Accès réservé aux premium.');
         }
+
         return $next($request);
     }
 }

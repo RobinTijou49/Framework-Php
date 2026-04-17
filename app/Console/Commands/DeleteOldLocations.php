@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Location;
+use Illuminate\Console\Command;
 
 class DeleteOldLocations extends Command
 {
@@ -27,8 +27,8 @@ class DeleteOldLocations extends Command
     public function handle()
     {
         $deleted = Location::where('created_at', '<', now()->subDays(14))
-        ->where('upvotes_count', '<', 2)
-        ->delete();
+            ->where('upvotes_count', '<', 2)
+            ->delete();
         $this->info("$deleted locations supprimées.");
     }
 }

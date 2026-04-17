@@ -10,4 +10,3 @@ Artisan::command('inspire', function () {
 
 // Planifier la suppression des vieilles locations
 Schedule::command('locations:delete-old')->hourly();
-
