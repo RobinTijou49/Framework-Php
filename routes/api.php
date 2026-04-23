@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\FilmApiController;
 use App\Http\Controllers\MCPController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,5 @@ Route::prefix('mcp')->group(function () {
     });
     Route::post('/run', [MCPController::class, 'run']);
 });
+
+Route::post('/chat', [ChatController::class, 'chat']);
