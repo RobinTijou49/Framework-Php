@@ -176,7 +176,7 @@ J'ai créé un MCP  qui permet d'exposer des endpoints pour que les modèles pui
 
 # Tools disponibles
 
-## 1. mcp/tools
+## 1. api/mcp/tools
 
 ### Endpoint
 
@@ -187,54 +187,64 @@ GET `/api/mcp/tools`
 
 ```json
 {
-  "tools": [
-    {
-      "name": "list_films",
-      "description": "Retourne la liste des films",
-      "parameters": []
-    },
-    {
-      "name": "get_locations_for_film",
-      "description": "Retourne les lieux d'un film",
-      "parameters": {
-        "id": "integer"
-      }
-    }
-  ]
+    "tools": [
+        {
+            "name": "list_films",
+            "description": "Retourne la liste des films",
+            "parameters": []
+        },
+        {
+            "name": "get_locations_for_film",
+            "description": "Retourne les lieux d'un film",
+            "parameters": {
+                "id": "integer"
+            }
+        }
+    ]
 }
 ```
-## 1. mcp/run
+## 1. api/chat
 
 ### Endpoint
-POST `/api/mcp/run`
+POST `/api/chat`
 Body:
 ```json
 {
-  "tool": "get_locations_for_film",
-  "parameters": {
-    "film_id": 19
-  }
+  "message": "Donne-moi tous les films"
 }
 ```
 
 ### Réponse
 
 ```json
+"tool":"list_films","result":[
+    {
+        "id":1,
+        "title":"Mae Turner",
+        "release_date":"1973-08-26 02:06:41",
+            "synopsis":"Accusamus
+                        facere occaecati et inventore. Sed dignissimos aut quis eum quis. A fuga sunt debitis aut ut sed. Facilis ratione
+                        molestias quia hic magni
+                        molestias.",
+            "created_at":"2026-04-16T08:25:52.000000Z",
+            "updated_at":"2026-04-16T08:25:52.000000Z",
+            "user_id":1
+            },
+    {
+        "id":2,
+        "title":"Jazmin Miller",
+        "release_date":"2007-03-22 12:19:43",
+        "synopsis":"Veritatis quasi quo id laborum deleniti deleniti
+                    exercitationem. Sed corrupti eaque quo aperiam. Reprehenderit sequi id ipsum
+                    perferendis.",
+        "created_at":"2026-04-16T08:25:52.000000Z",
+        "updated_at":"2026-04-16T08:25:52.000000Z",
+        "user_id":1}
+]
+```
+On peut aussi faire des requetes pour récupérer les lieux d'un film toujours sur l'endpoint `api/chat`:
+```json
 {
-"tool": "get_locations_for_film",
-    "data": [
-        {
-            "id": 68,
-            "film_id": 19,
-            "user_id": 2,
-            "name": "quidem",
-            "city": "Bernieceville",
-            "country": "Haiti",
-            "description": "Et et nesciunt maxime omnis. Hic molestiae vel molestias quia atque fugiat voluptatem non. Quia repellendus nostrum nulla enim sunt.",
-            "upvotes_count": 0,
-            "created_at": "2026-04-16T08:25:52.000000Z",
-            "updated_at": "2026-04-16T08:25:52.000000Z"
-        },
-    ]
+  "message": "Donne-moi les lieux du film Mae Turner"
 }
 ```
