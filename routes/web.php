@@ -73,6 +73,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');
     Route::post('/locations/{location}/upvote', [LocationController::class, 'upvote'])->name('locations.upvote');
 
+    //MCP routes
+    Route::get('/chat', function () {
+        return view('chat');
+    })->name('chat');
+
     // Stripe routes
     Route::post('/subscribe', [StripeController::class, 'subscribe']);
     Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');

@@ -248,3 +248,10 @@ On peut aussi faire des requetes pour récupérer les lieux d'un film toujours s
   "message": "Donne-moi les lieux du film Mae Turner"
 }
 ```
+
+
+J'ai créer un interface qui permet de faire un caht et lui poser les question pour récupérer les films ou les locations d'un film.
+Url:
+```
+http://localhost:8000/chat
+```

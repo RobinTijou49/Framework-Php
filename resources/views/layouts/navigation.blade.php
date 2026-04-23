@@ -40,6 +40,13 @@
                     </x-nav-link>
                 </div>
                 @endif
+                @if(auth()->user()->subscribed('default'))
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('chat')" :active="request()->routeIs('chat')">
+                        {{ __('Chat MCP') }}
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
