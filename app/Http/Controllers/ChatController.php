@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use App\Models\Film;
 use App\Models\Location;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ChatController extends Controller
 {
@@ -15,9 +15,9 @@ class ChatController extends Controller
 
         // 1. Appel Ollama
         $response = Http::timeout(180)->post('http://127.0.0.1:11434/api/generate', [
-            "model" => "gemma3:1b",
-            "prompt" => $this->buildPrompt($userMessage),
-            "stream" => false
+            'model' => 'gemma3:1b',
+            'prompt' => $this->buildPrompt($userMessage),
+            'stream' => false,
         ]);
 
         $text = $response->json()['response'] ?? '';
@@ -26,9 +26,9 @@ class ChatController extends Controller
         $parsed = $this->extractJson($text);
 
         // 3. Si pas de tool → réponse classique
-        if (!$parsed || !isset($parsed['tool'])) {
+        if (! $parsed || ! isset($parsed['tool'])) {
             return response()->json([
-                "response" => $text
+                'response' => $text,
             ]);
         }
 
@@ -48,7 +48,7 @@ class ChatController extends Controller
 
         if ($tool === 'get_locations_for_film' && empty($args['id'])) {
             return response()->json([
-                "error" => "Missing film id"
+                'error' => 'Missing film id',
             ]);
         }
         // 5. Exécution tool
@@ -56,8 +56,8 @@ class ChatController extends Controller
 
         // 6. Retour final MCP
         return response()->json([
-            "tool" => $tool,
-            "result" => $result
+            'tool' => $tool,
+            'result' => $result,
         ]);
     }
 
@@ -70,10 +70,9 @@ class ChatController extends Controller
 
             'list_films' => Film::all(),
 
-            'get_locations_for_film' =>
-                Location::where('film_id', (int) $args['id'])->get(),
+            'get_locations_for_film' => Location::where('film_id', (int) $args['id'])->get(),
 
-            default => ["error" => "Tool not found"]
+            default => ['error' => 'Tool not found']
         };
     }
 
@@ -81,8 +80,8 @@ class ChatController extends Controller
     // PROMPT OLLAMA
     // ------------------------
     private function buildPrompt($message)
-        {
-            return "
+    {
+        return "
         Tu es un routeur d'API Laravel.
 
         TOOLS :
@@ -109,7 +108,7 @@ class ChatController extends Controller
 
         Utilisateur: $message
         ";
-        }
+    }
 
     // ------------------------
     // PARSER JSON ROBUSTE

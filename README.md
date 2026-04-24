@@ -30,6 +30,8 @@ composer run dev
 ```
 
 
+
+
 ## Etape 1 Authentification
 Installation de Laravel Breeze
 
@@ -117,7 +119,7 @@ php artisan location:delete-old
 
 ## lancer la tache planifiée automatiquement
 ```
-php artison schedule:work
+php artisan schedule:work
 ```
 
 ## Etape 6 Laravel Pint
@@ -155,6 +157,12 @@ J'ai pu tester de faire des vrai paiements en utilisant les cartes de test Strip
 
 Ensuite j'ai ajouter un middleware `Subscribed` qui vérifie si l'utilisateur a un abonnement actif pour lui permettre d'accéder à la page Premium Content.
 
+Pour que ça fonctionne, il faut installer stripe CLI et créer un webhook pour que Stripe puisse communiquer avec notre application et mettre à jour le statut de l'abonnement de l'utilisateur en cas de changement (paiement réussi, abonnement annulé, etc.)
+```
+.\stripe.exe listen --forward-to=http://localhost:8000/stripe/webhook
+```
+
+
 ### Route API JSON
 J'ai créé une route API (`/api/filmsapi`) qui retourne la liste des films avec leurs location au format JSON. Cette route est accessible que pour les utilisateurs connectés et ayant payer un abonnement.
 
@@ -173,6 +181,8 @@ Route::middleware(['web', 'auth', 'subscribed'])->group(function () {
 # Etape 9 MCP
 
 J'ai créé un MCP  qui permet d'exposer des endpoints pour que les modèles puissent être utilisés par une IA. J'ai créé deux endpoints :
+
+Pour faire fonctionner le chat il faut utiliser Ollama et avoir le model gemma3:1b installé et lancé sur votre machine
 
 # Tools disponibles
 
@@ -250,7 +260,7 @@ On peut aussi faire des requetes pour récupérer les lieux d'un film toujours s
 ```
 
 
-J'ai créer un interface qui permet de faire un caht et lui poser les question pour récupérer les films ou les locations d'un film.
+J'ai créer un interface qui permet de faire un chat et lui poser les question pour récupérer les films ou les locations d'un film.
 Url:
 ```
 http://localhost:8000/chat

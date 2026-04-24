@@ -5,13 +5,12 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
-use App\Http\Controllers\MCPController;
+use App\Http\Models\Location;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use App\Http\Models\Location;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,7 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');
     Route::post('/locations/{location}/upvote', [LocationController::class, 'upvote'])->name('locations.upvote');
 
-    //MCP routes
+    // MCP routes
     Route::get('/chat', function () {
         return view('chat');
     })->name('chat');

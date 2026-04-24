@@ -11,17 +11,17 @@ class MCPController extends Controller
     public function listFilms()
     {
         return response()->json([
-            "tool" => "list_films",
-            "data" => Film::all()
+            'tool' => 'list_films',
+            'data' => Film::all(),
         ]);
     }
 
     public function getLocationsForFilm($id)
     {
         return response()->json([
-            "tool" => "get_locations_for_film",
-            "film_id" => $id,
-            "data" => Location::where("film_id", $id)->get()
+            'tool' => 'get_locations_for_film',
+            'film_id' => $id,
+            'data' => Location::where('film_id', $id)->get(),
         ]);
     }
 
@@ -34,19 +34,19 @@ class MCPController extends Controller
 
             case 'list_films':
                 return response()->json([
-                    "tool" => $tool,
-                    "data" => Film::all()
+                    'tool' => $tool,
+                    'data' => Film::all(),
                 ]);
 
             case 'get_locations_for_film':
                 return response()->json([
-                    "tool" => $tool,
-                    "data" => Location::where('film_id', $args['id'])->get()
+                    'tool' => $tool,
+                    'data' => Location::where('film_id', $args['id'])->get(),
                 ]);
 
             default:
                 return response()->json([
-                    "error" => "Tool not found"
+                    'error' => 'Tool not found',
                 ], 404);
         }
     }
