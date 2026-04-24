@@ -15,26 +15,5 @@ Route::middleware(['web', 'auth', 'subscribed'])->group(function () {
 });
 
 // Routes MCP
-Route::prefix('mcp')->group(function () {
-    Route::get('/tools', function () {
-        return response()->json([
-            "tools" => [
-                [
-                    "name" => "list_films",
-                    "description" => "Retourne la liste des films",
-                    "parameters" => []
-                ],
-                [
-                    "name" => "get_locations_for_film",
-                    "description" => "Retourne les lieux d'un film",
-                    "parameters" => [
-                        "id" => "integer"
-                    ]
-                ]
-            ]
-        ]);
-    });
-    Route::post('/run', [MCPController::class, 'run']);
-});
 
 Route::post('/chat', [ChatController::class, 'chat']);
